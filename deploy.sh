@@ -123,8 +123,20 @@ function STATIONS {
    export LMA_STATIONS_OUTPUT_PATH=$LOCAL_OUTPUT_PATH/LMAStations/
    mkdir -p $LMA_STATIONS_OUTPUT_PATH
    python lma_stations.py
+   rm -rf $LMA_STATIONS_OUTPUT_PATH
 }
 
+function FLIGHT_TRACK {
+   export FLIGHT_TRACK_OUTPUT_PATH=$LOCAL_OUTPUT_PATH/FlightTrack/
+   mkdir -p $FLIGHT_TRACK_OUTPUT_PATH
+   python flight_track.py
+
+}
+
+
+#call above functions to start processing and uploading data to AWS
+
+FLIGHT_TRACK
 ABI
 CRS
 FEGS
