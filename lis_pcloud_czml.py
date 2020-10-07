@@ -39,6 +39,9 @@ def makePointCloud(fdate):
     filesLIS = LISfiles(s3bucket, fdate, bigbox, CRStime[0], CRStime[-1], Verb=False)
     print(filesLIS)
 
+    if len(filesLIS) == 0:
+        return
+
     # ----tiles set up
     steps = [16, 4, 1]
     usetype = {32: 'flash', 16: 'flash', 8: 'group', 4: 'group', 2: 'event', 1: 'event'}
@@ -63,7 +66,12 @@ def makePointCloud(fdate):
             for typ in types:
                 LTN[typ].Ltndata(ds, bigbox)
 
-    nTile = 5
+    #nTile = 5
+    if (fdate == '2017-05-17'):
+        nTile = 5
+    else:
+        nTile = 2
+
     Tsize = {}  # <-- Different ltype may have different length. So use dict.
     for typ in reversed(types):
         Tsize[typ] = int(np.ceil(LTN[typ].Time.size / nTile))
@@ -138,6 +146,9 @@ def makePointCloud(fdate):
 
 dates = ['2017-04-11', '2017-04-13', '2017-04-16', '2017-04-18', '2017-04-20', '2017-04-22', '2017-05-07', '2017-05-08',
          '2017-05-12', '2017-05-14', '2017-05-17']
+
+
+
 
 for fdate in dates:
     makePointCloud(fdate)

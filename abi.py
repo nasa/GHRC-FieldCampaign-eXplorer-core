@@ -3,7 +3,6 @@ from mk_gdaltif import makeGeoTiff
 import os, re, glob
 import terracotta as tc
 import tqdm
-import json
 import boto3.session
 
 s3 = boto3.resource('s3')
@@ -98,36 +97,6 @@ def uploadGeoTiff():
 
 uploadGeoTiff()
 
-zappa_config = {
-    "abi": {
-        "slim_handler": "true",
-        "app_function": "terracotta.server.app.app",
-        "aws_region": os.environ['AWS_REGION'],
-        "project_name": "fcx-backend",
-        "runtime": "python3.7",
-        "s3_bucket": os.environ['OUTPUT_DATA_BUCKET'],
-        "timeout_seconds": 30,
-        "memory_size": 500,
-        "aws_environment_variables": {
-            "TC_DRIVER_PATH": f"s3://{os.environ['OUTPUT_DATA_BUCKET']}/{os.environ['OUTPUT_DATA_BUCKET_KEY']}/fieldcampaign/goesrplt/abi_allflights.sqlite",
-            "TC_DRIVER_PROVIDER": "sqlite-remote",
-            "TC_REPROJECTION_METHOD": "linear",
-            "TC_RESAMPLING_METHOD": "average",
-            "TC_XRAY_PROFILE": "true"
-        },
-        "manage_roles": False,
-        "role_arn": "arn:aws:iam::511100528211:role/fcx-zappa-lambda-exe",
-        "vpc_config": {
-            "SubnetIds": [ "subnet-0945ef12f7bec0832" ],
-            "SecurityGroupIds": [ "sg-0fe803fefbbaef74f" ]
-        },
-    }
-}
-
-with open('zappa_settings.json', 'w') as writer:
-    writer.write(json.dumps(zappa_config, sort_keys=True, indent=4))
-
-print("created zappa_settings.json")
 
 
 

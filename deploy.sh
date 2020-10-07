@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source ~/.bashrc
 
 if ! conda &> /dev/null
 then
@@ -15,9 +16,20 @@ then
     conda create --name fcx python=3.6 -y
     conda activate fcx
     conda install -c conda-forge xarray dask netCDF4 bottleneck terracotta gdal rasterio pandas boto3 s3fs numpy -y
+
+    conda install -c conda-forge xarray -y
+    conda install -c conda-forge dask -y
+    conda install -c conda-forge s3fs -y
     conda install -c conda-forge zarr -y
     conda install -c conda-forge scipy -y
     conda install -c conda-forge h5netcdf -y
+    conda install -c conda-forge numpy -y
+    conda install -c conda-forge netCDF4 -y
+    conda install -c conda-forge gdal -y
+    conda install -c conda-forge boto3 -y
+    conda install -c conda-forge tqdm -y
+    conda install -c conda-forge terracotta -y
+
     rm Miniconda3-latest-Linux-x86_64.sh
     source ~/.bashrc
 fi
@@ -29,9 +41,10 @@ source ~/.bashrc
 
 conda init bash
 
+source ./env.sh
+
 conda activate fcx
 
-source ./env.sh
 
 export LOCAL_OUTPUT_PATH=/home/ec2-user/raw-output-data
 export LOCAL_INPUT_PATH=/home/ec2-user/raw-input-data
@@ -51,7 +64,9 @@ function ABI {
     mkdir -p $ABI_INPUT_PATH
     mkdir -p $ABI_OUTPUT_PATH
 
-    python abi.py
+    #python abi.py
+
+    python abi_zappa.py
 
     pip install virtualenv --user
     virtualenv ~/envs/tc-deploy --python=python3.7
@@ -67,7 +82,9 @@ function ABI {
     sed -i 's/ALLOWED_ORIGINS_TILES: List\[str\] = \[\]/ALLOWED_ORIGINS_TILES: List\[str\] = \["*"\]/g' terracotta/config.py
     mv ../zappa_settings.json .
 
+    #use following command if you need to delete zappa stack and do clean deployment
     #zappa undeploy abi -y
+
     zappa deploy abi
 
     zappa update abi
@@ -137,7 +154,6 @@ function FLIGHT_TRACK {
 #call above functions to start processing and uploading data to AWS
 
 FLIGHT_TRACK
-ABI
 CRS
 FEGS
 LIP
@@ -145,3 +161,4 @@ GLM
 LIS
 LMA
 STATIONS
+ABI
