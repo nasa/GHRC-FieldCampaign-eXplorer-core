@@ -14,6 +14,20 @@ Following dataset processing scripts are available. More information about these
 * ISS LIS
 * LIP
 * LMA
+* NEXRAD
+* CPL
+* HIWRAP
+* NPOL
+* DROPSONDE
+
+## Local Run
+
+* Create a sws credentials or export the following as the environment variables
+    * AWS_REGION
+    * AWS_ACCESS_KEY_ID
+    * AWS_SECRET_ACCESS_KEY
+* Each python script for every instruments of various campaigns are directly executable.
+* Some campaign instrument also has a interactive python notebook to quickly check and test the validity of conversion before applying to all available datasets.
 
 ## Deployment
 

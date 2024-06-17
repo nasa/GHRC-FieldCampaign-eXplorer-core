@@ -1,0 +1,17 @@
+xarray
+netCDF4
+dask
+s3fs
+zarr
+scipy
+h5netcdf
+numpy
+netCDF4
+gdal
+boto3
+tqdm
+terracotta
+bottleneck
+rasterio
+pandas
+fcx-playground
