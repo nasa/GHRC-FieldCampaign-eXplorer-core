@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# This deployment script is for GOESRPLT Campaign; and needs addition of other field campaigns.
 source ~/.bashrc
 
 if ! conda &> /dev/null
@@ -96,13 +97,13 @@ function ABI {
 function CRS {
    export CRS_OUTPUT_PATH=$LOCAL_OUTPUT_PATH/CRS/
    mkdir -p $CRS_OUTPUT_PATH
-   python crs.py
+   python ./src/campaigns/goesr/crs.py
    rm -rf $CRS_OUTPUT_PATH
 }
 
 function FEGS {
    export FEGS_OUTPUT_PATH=$LOCAL_OUTPUT_PATH/FEGS/
-   python fegs_czml.py
+   python ./src/campaigns/goesr/fegs_czml.py
    rm -rf $FEGS_OUTPUT_PATH
 }
 
@@ -111,7 +112,7 @@ function LIP {
    export LIP_OUTPUT_PATH=$LOCAL_OUTPUT_PATH/LIP/
    mkdir -p $LIP_OUTPUT_PATH
    mkdir -p $LIP_INPUT_PATH
-   python lip_czml.py
+   python ./src/campaigns/goesr/lip_czml.py
    rm -rf $LIP_OUTPUT_PATH
    rm -rf $LIP_INPUT_PATH
 }
@@ -119,34 +120,34 @@ function LIP {
 function GLM {
    export GLM_OUTPUT_PATH=$LOCAL_OUTPUT_PATH/GLM/
    mkdir -p $GLM_OUTPUT_PATH
-   python glm_pcloud_czml.py
+   python ./src/campaigns/goesr/glm_pcloud_czml.py
    rm -rf $GLM_OUTPUT_PATH
 }
 
 function LIS {
    export LIS_OUTPUT_PATH=$LOCAL_OUTPUT_PATH/LIS/
    mkdir -p $LIS_OUTPUT_PATH
-   python lis_pcloud_czml.py
+   python ./src/campaigns/goesr/lis_pcloud_czml.py
    rm -rf $LIS_OUTPUT_PATH
 }
 
 function LMA {
    export LMA_OUTPUT_PATH=$LOCAL_OUTPUT_PATH/LMA/
    mkdir -p $LMA_OUTPUT_PATH
-   python lma_pcloud_czml.py
+   python ./src/campaigns/goesr/lma_pcloud_czml.py
 }
 
 function STATIONS {
    export LMA_STATIONS_OUTPUT_PATH=$LOCAL_OUTPUT_PATH/LMAStations/
    mkdir -p $LMA_STATIONS_OUTPUT_PATH
-   python lma_stations.py
+   python ./src/campaigns/goesr/lma_stations.py
    rm -rf $LMA_STATIONS_OUTPUT_PATH
 }
 
 function FLIGHT_TRACK {
    export FLIGHT_TRACK_OUTPUT_PATH=$LOCAL_OUTPUT_PATH/FlightTrack/
    mkdir -p $FLIGHT_TRACK_OUTPUT_PATH
-   python flight_track.py
+   python ./src/campaigns/goesr/flight_track.py
 
 }
 
