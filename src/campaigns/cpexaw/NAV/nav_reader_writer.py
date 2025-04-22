@@ -14,7 +14,7 @@ model = {
     "name": "DC8",
     "availability": "{}/{}",
     "model": {
-        "gltf": "https://s3.amazonaws.com/visage-czml/iphex_HIWRAP/img/er2.gltf",
+        "gltf": "/iphex_HIWRAP/img/er2.gltf",
         "scale": 100.0,
         "minimumPixelSize": 32,
         "maximumScale": 150.0
